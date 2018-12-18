@@ -17,34 +17,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.controledegastosapi.controledegastosAulaapi.event.RecursoCriadoEvent;
-import com.controledegastosapi.controledegastosAulaapi.model.Categoria;
-import com.controledegastosapi.controledegastosAulaapi.service.CategoriaService;
+import com.controledegastosapi.controledegastosAulaapi.model.Lancamento;
+import com.controledegastosapi.controledegastosAulaapi.service.LancamentoService;
 
 @RestController
-@RequestMapping("/categorias")
-public class CategoriaController {
-
+@RequestMapping("/lancamentos")
+public class LancamentoController {
+	
 	@Autowired
-	private CategoriaService categoriaService;
+	private LancamentoService lancamentoService;
 	
 	@Autowired
 	private ApplicationEventPublisher publisher;
-
+	
 	@GetMapping
-	public List<Categoria> listar() {
-		return categoriaService.listar();
+	public List<Lancamento> listar(){
+		return lancamentoService.listar();
 	}
-
+	
 	@GetMapping("/{codigo}")
-	public ResponseEntity<Categoria> buscarPeloCodigo(@PathVariable Long codigo) {
-		Categoria categoria = categoriaService.buscarPeloCodigo(codigo);
-		return categoria != null ? ResponseEntity.ok(categoria) : ResponseEntity.notFound().build();
+	public ResponseEntity<Lancamento> buscarPeloCodigo(@PathVariable Long codigo) {
+		Lancamento lancamento = lancamentoService.buscarPeloCodigo(codigo);
+		return lancamento != null ? ResponseEntity.ok(lancamento) : ResponseEntity.notFound().build();
 	}
-
+	
 	@PostMapping
-	public ResponseEntity<Categoria> salvar(@Valid @RequestBody Categoria categoria, HttpServletResponse response) {
-		Categoria categoriaSalva = categoriaService.salvar(categoria);
-		publisher.publishEvent(new RecursoCriadoEvent(this, response, categoriaSalva.getCodigo()));
-		return ResponseEntity.status(HttpStatus.CREATED).body(categoriaSalva);
+	public ResponseEntity<Lancamento> salvar(@Valid @RequestBody Lancamento lancamento, HttpServletResponse response){
+		Lancamento lancamentoSalvo = lancamentoService.salvar(lancamento);
+		publisher.publishEvent(new RecursoCriadoEvent(this, response, lancamento.getCodigo()));
+		return ResponseEntity.status(HttpStatus.CREATED).body(lancamentoSalvo);
 	}
 }
