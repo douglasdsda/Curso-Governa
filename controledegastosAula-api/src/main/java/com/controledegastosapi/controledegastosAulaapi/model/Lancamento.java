@@ -128,7 +128,14 @@ public class Lancamento {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		result = prime * result + ((categoria == null) ? 0 : categoria.hashCode());
+		result = prime * result + ((dataPagamento == null) ? 0 : dataPagamento.hashCode());
+		result = prime * result + ((dataVencimento == null) ? 0 : dataVencimento.hashCode());
+		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
+		result = prime * result + ((observacao == null) ? 0 : observacao.hashCode());
+		result = prime * result + ((pessoa == null) ? 0 : pessoa.hashCode());
+		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
+		result = prime * result + ((valor == null) ? 0 : valor.hashCode());
 		return result;
 	}
 
@@ -141,10 +148,42 @@ public class Lancamento {
 		if (getClass() != obj.getClass())
 			return false;
 		Lancamento other = (Lancamento) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
+		if (categoria == null) {
+			if (other.categoria != null)
 				return false;
-		} else if (!codigo.equals(other.codigo))
+		} else if (!categoria.equals(other.categoria))
+			return false;
+		if (dataPagamento == null) {
+			if (other.dataPagamento != null)
+				return false;
+		} else if (!dataPagamento.equals(other.dataPagamento))
+			return false;
+		if (dataVencimento == null) {
+			if (other.dataVencimento != null)
+				return false;
+		} else if (!dataVencimento.equals(other.dataVencimento))
+			return false;
+		if (descricao == null) {
+			if (other.descricao != null)
+				return false;
+		} else if (!descricao.equals(other.descricao))
+			return false;
+		if (observacao == null) {
+			if (other.observacao != null)
+				return false;
+		} else if (!observacao.equals(other.observacao))
+			return false;
+		if (pessoa == null) {
+			if (other.pessoa != null)
+				return false;
+		} else if (!pessoa.equals(other.pessoa))
+			return false;
+		if (tipo != other.tipo)
+			return false;
+		if (valor == null) {
+			if (other.valor != null)
+				return false;
+		} else if (!valor.equals(other.valor))
 			return false;
 		return true;
 	}
