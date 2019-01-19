@@ -1,0 +1,58 @@
+		<q-card>
+            <q-card-main>
+                <div class="row">
+                    <div class="col-sm-4 col-xs-6">
+                        <g-input
+                            ref="refCodigo"
+                            tipo="text"
+                            etiqueta="Código"
+                            validacao="numeric"
+                            :foco="false"
+                            :chamarFuncaoNoEnter="pesquisarPrimeiraPagina"
+                            v-model="pessoa.codigo">
+                        </g-input>
+                    </div>
+                    <div class="col-sm-4 col-xs-6">
+                        <g-input
+                            ref="refNome"
+                            tipo="text"
+                            etiqueta="Nome"
+                            validacao="text"
+                            :foco="false"
+                            :chamarFuncaoNoEnter="pesquisarPrimeiraPagina"
+                            v-model="pessoa.nome">
+                        </g-input>
+                    </div>
+                    <div class="col-sm-4 col-xs-6">
+                        <g-select
+                            ref="refAtivo"
+                            etiqueta="Ativo"
+                            :foco="false"
+                            :itens="ativoArray"
+                            item-valor="codigo"
+                            item-etiqueta="descricao"
+                            v-model="pessoa.ativo">
+                        </g-select>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-sm-6 text-left">
+                        <q-btn
+                            icon="fas fa-search"
+                            color="warning"
+                            @click="pesquisarPrimeiraPagina">
+                            &nbsp;&nbsp;Pesquisar
+                        </q-btn>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <q-btn
+                            icon="fas fa-plus"
+                            color="primary"
+                            @click="abrirPaginaPessoaCadastrar">
+                            &nbsp;&nbsp;Nova
+                        </q-btn>
+                    </div>
+                </div>
+            </q-card-main>
+        </q-card>

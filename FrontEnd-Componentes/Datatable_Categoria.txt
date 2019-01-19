@@ -1,0 +1,58 @@
+		<g-datatable
+            ref="refResultadoPesquisaCategoria"
+            :getFiltroPesquisa="getFiltroPesquisa"
+            :colunas=colunasCategoriaDataTable
+            :api="apiCategoria"
+            v-model="pagina"
+            :operacoes="operacoes"
+            :exibirColunaOperacoes="true"
+            :elementosPorPagina="elementosPorPagina"
+            :carregamentoInicial="false">
+        </g-datatable>
+		
+	colunasCategoriaDataTable: [
+        {
+          conteudoTipo: '',
+          largura: '6%',
+          cabecalhoClasse: 'text-center',
+          cabecalhoEtiqueta: 'Código',
+          conteudoClasse: 'text-center',
+          propriedade: 'codigo',
+          chave: 'codigo'
+        },
+        {
+          conteudoTipo: '',
+          largura: '40%',
+          cabecalhoClasse: 'text-center',
+          cabecalhoEtiqueta: 'Nome',
+          conteudoClasse: 'text-center',
+          propriedade: 'nome'
+        }
+      ]
+	 
+	 operacoes: [
+        {
+          cor: 'blue',
+          icone: 'fas fa-search',
+          tooptip: 'Visualizar categoria',
+          clique: this.visualizarItem,
+          permissao: (row) => true,
+          visivel: (row) => true
+        },
+        {
+          cor: 'orange',
+          icone: 'fas fa-edit',
+          tooptip: 'Editar categoria',
+          clique: this.editarItem,
+          permissao: (row) => true,
+          visivel: (row) => true
+        },
+        {
+          cor: 'red',
+          icone: 'fas fa-trash',
+          tooptip: 'Excluir categoria',
+          clique: this.excluirItem,
+          permissao: (row) => true,
+          visivel: (row) => true
+        }
+      ]

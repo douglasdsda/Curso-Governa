@@ -1,0 +1,35 @@
+<form @submit.prevent="salvar">
+            <q-modal v-model="modalOpened" :content-css="{minWidth: '50vw'}">
+                <div class="row" style="padding-left: 10px;">
+                    <div class="col-sm-12 col-xs-6">
+                        <g-input
+                            ref="refNomeNovaCategoria"
+                            tipo="text"
+                            etiqueta="Nome"
+                            validacao="required | minLength(3) | maxLength(50)"
+                            :foco="false"
+                            :desabilitar="paginaStatus.desabilitarEdicao"
+                            v-model="nomeCategoriaNova">
+                        </g-input>
+                    </div>
+                </div>
+                <br/>
+                <div class="row" style="padding: 0px 10px 10px 10px">
+                    <div class="col-sm-6 text-left">
+                        <q-btn
+                            color="info"
+                            @click="sairSemSalvar"
+                            label="Sair">
+                        </q-btn>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <q-btn
+                            color="positive"
+                            @click="salvar"
+                            v-show="!paginaStatus.desabilitarEdicao"
+                            label="Salvar">
+                        </q-btn>
+                    </div>
+                </div>
+            </q-modal>
+        </form>

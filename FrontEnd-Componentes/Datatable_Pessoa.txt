@@ -1,0 +1,63 @@
+<g-datatable
+	ref="refResultadoPesquisaPessoa"
+	:getFiltroPesquisa="getFiltroPesquisa"
+	:colunas=colunasPessoaDataTable
+	:api="apiPessoa"
+	v-model="pagina"
+	:operacoes="operacoes"
+	:exibirColunaOperacoes="exibirColunaOperacoes"
+	:elementosPorPagina="elementosPorPagina"
+	:carregamentoInicial="false">
+</g-datatable>
+
+colunasPessoaDataTable: [
+	{
+		conteudoTipo: '',
+		largura: '8%',
+		cabecalhoClasse: 'text-center',
+		cabecalhoEtiqueta: 'Código',
+		conteudoClasse: 'text-center',
+		propriedade: 'codigo',
+		chave: 'codigo'
+	},
+	{
+		conteudoTipo: '',
+		largura: '25%',
+		cabecalhoClasse: 'text-left',
+		cabecalhoEtiqueta: 'Nome',
+		conteudoClasse: 'text-left',
+		propriedade: 'nome'
+	},
+	{
+		conteudoTipo: '',
+		largura: '6%',
+		cabecalhoClasse: 'text-left',
+		cabecalhoEtiqueta: 'Ativo',
+		conteudoClasse: 'text-center',
+		propriedade: 'ativo'
+	},
+	{
+		conteudoTipo: '',
+		largura: '8%',
+		cabecalhoClasse: 'text-left',
+		cabecalhoEtiqueta: 'Estado',
+		conteudoClasse: 'text-center',
+		propriedade: 'endereco.estado'
+	},
+	{
+		conteudoTipo: '',
+		largura: '15%',
+		cabecalhoClasse: 'text-left',
+		cabecalhoEtiqueta: 'Bairro',
+		conteudoClasse: 'text-left',
+		propriedade: 'endereco.bairro'
+	},
+	{
+		conteudoTipo: '',
+		largura: '20%',
+		cabecalhoClasse: 'text-left',
+		cabecalhoEtiqueta: 'Logradouro',
+		conteudoClasse: 'text-left',
+		propriedade: 'endereco.logradouro'
+	}
+]
