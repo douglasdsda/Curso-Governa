@@ -1,0 +1,144 @@
+<template>
+    <div>
+        <g-breadcrumb :paginas="paginaStatus.caminhoMigalha"/>
+        <form @submit.prevent="salvar">
+            <q-card>
+                <q-card-main>
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-6">
+                            <g-input
+                                ref="refCodigo"
+                                tipo="text"
+                                etiqueta="Código"
+                                validacao="numeric"
+                                :foco="false"
+                                :desabilitar="true"
+                                v-model="paginaStatus.pessoa.codigo">
+                            </g-input>
+                        </div>
+                        <div class="col-sm-4 col-xs-6">
+                            <g-input
+                                ref="refNome"
+                                tipo="text"
+                                etiqueta="Nome"
+                                validacao="text | required"
+                                :foco="false"
+                                :desabilitar="paginaStatus.desabilitarEdicao"
+                                v-model="paginaStatus.pessoa.nome">
+                            </g-input>
+                        </div>
+                        <div class="col-sm-4 col-xs-6">
+                            <g-select
+                                ref="refAtivo"
+                                etiqueta="Ativo"
+                                validacao="required"
+                                :foco="false"
+                                :itens="ativoArray"
+                                item-valor="codigo"
+                                item-etiqueta="descricao"
+                                :desabilitar="paginaStatus.desabilitarEdicao"
+                                v-model="paginaStatus.pessoa.ativo">
+                            </g-select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-4">
+                            <g-input
+                                ref="refCep"
+                                tipo="text"
+                                etiqueta="Cep"
+                                validacao="text"
+                                :foco="false"
+                                :desabilitar="paginaStatus.desabilitarEdicao"
+                                v-model="paginaStatus.pessoa.endereco.cep">
+                            </g-input>
+                        </div>
+                        <div class="col-sm-4 col-xs-4">
+                            <g-input
+                                ref="refEstado"
+                                tipo="text"
+                                etiqueta="Estado"
+                                validacao="text"
+                                :foco="false"
+                                :desabilitar="paginaStatus.desabilitarEdicao"
+                                v-model="paginaStatus.pessoa.endereco.estado">
+                            </g-input>
+                        </div>
+                        <div class="col-sm-4 col-xs-4">
+                            <g-input
+                                ref="refCidade"
+                                tipo="text"
+                                etiqueta="Cidade"
+                                validacao="text"
+                                :foco="false"
+                                :desabilitar="paginaStatus.desabilitarEdicao"
+                                v-model="paginaStatus.pessoa.endereco.cidade">
+                            </g-input>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-6">
+                            <g-input
+                                ref="refBairro"
+                                tipo="text"
+                                etiqueta="Bairro"
+                                validacao="text"
+                                :foco="false"
+                                :desabilitar="paginaStatus.desabilitarEdicao"
+                                v-model="paginaStatus.pessoa.endereco.bairro">
+                            </g-input>
+                        </div>
+                        <div class="col-sm-4 col-xs-6">
+                            <g-input
+                                ref="refLogradouro"
+                                tipo="text"
+                                etiqueta="Logradouro"
+                                validacao="text"
+                                :foco="false"
+                                :desabilitar="paginaStatus.desabilitarEdicao"
+                                v-model="paginaStatus.pessoa.endereco.logradouro">
+                            </g-input>
+                        </div>
+                        <div class="col-sm-4 col-xs-6">
+                            <g-input
+                                ref="refComplemento"
+                                tipo="text"
+                                etiqueta="Complemento"
+                                validacao="text"
+                                :foco="false"
+                                :desabilitar="paginaStatus.desabilitarEdicao"
+                                v-model="paginaStatus.pessoa.endereco.complemento">
+                            </g-input>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-6">
+                            <g-input
+                                ref="refNumero"
+                                tipo="text"
+                                etiqueta="Numero"
+                                validacao="text"
+                                :foco="false"
+                                :desabilitar="paginaStatus.desabilitarEdicao"
+                                v-model="paginaStatus.pessoa.endereco.numero">
+                            </g-input>
+                        </div>
+                    </div>
+                </q-card-main>
+            </q-card>
+        </form>
+        <div class="col-12 text-right pad-20t-h10-80b" >
+            <q-btn
+                round
+                class="fixed"
+                color="positive"
+                icon="check"
+                size="lg"
+                @click="salvar"
+                style="right: 18px; bottom:18px"
+                v-show="!paginaStatus.desabilitarEdicao">
+                <q-tooltip>Salvar</q-tooltip>
+            </q-btn>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,135 @@
+<template>
+    <div>
+        <g-breadcrumb :paginas="paginaStatus.caminhoMigalha" />
+        <form @submit.prevent="salvar">
+            <q-card>
+                <q-card-main>
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-6">
+                            <g-input
+                                ref="refCodigo"
+                                tipo="text"
+                                etiqueta="Código"
+                                validacao="numeric"
+                                :desabilitar="true"
+                                :foco="false"
+                                v-model="paginaStatus.lancamento.codigo">
+                            </g-input>
+                        </div>
+                        <div class="col-sm-4 col-xs-6">
+                            <g-input
+                                ref="refNome"
+                                tipo="text"
+                                etiqueta="Descrição"
+                                validacao="required | text"
+                                :foco="false"
+                                :desabilitar="paginaStatus.desabilitarEdicao"
+                                v-model="paginaStatus.lancamento.descricao">
+                            </g-input>
+                        </div>
+                        <div class="col-sm-4 col-xs-6">
+                            <g-select
+                                ref="refTipo"
+                                etiqueta="Tipo lançamento"
+                                validacao="required"
+                                :foco="false"
+                                :itens="tipoLancamentoArray"
+                                item-valor="codigo"
+                                item-etiqueta="descricao"
+                                :desabilitar="paginaStatus.desabilitarEdicao"
+                                v-model="paginaStatus.lancamento.tipo">
+                            </g-select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row col-sm-4 col-xs-6">
+                            <g-datepicker
+                                ref="datVencimento"
+                                etiqueta="Data Vencimento"
+                                validacao="required"
+                                :foco="false"
+                                :desabilitar="paginaStatus.desabilitarEdicao"
+                                v-model="paginaStatus.lancamento.dataVencimento">
+                            </g-datepicker>
+                        </div>
+                        <div class="row col-sm-4 col-xs-6">
+                            <g-datepicker
+                                ref="datPagamento"
+                                etiqueta="Data Pagamento"
+                                :foco="false"
+                                :desabilitar="paginaStatus.desabilitarEdicao"
+                                v-model="paginaStatus.lancamento.dataPagamento">
+                            </g-datepicker>
+                        </div>
+                        <div class="col-sm-4 col-xs-6" style="padding-top: 9px">
+                            <g-input
+                                ref="refValor"
+                                tipo="text"
+                                etiqueta="Valor Lançamento"
+                                validacao="required | decimal"
+                                :foco="false"
+                                :desabilitar="paginaStatus.desabilitarEdicao"
+                                v-model="paginaStatus.lancamento.valor">
+                            </g-input>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-6">
+                            <g-autocomplete
+                                ref="refCategoria"
+                                etiqueta="Categoria"
+                                validacao="required"
+                                valor="codigo"
+                                descricaoPrimaria="nome"
+                                :api=apiCategoria
+                                :desabilitar="paginaStatus.desabilitarEdicao"
+                                v-model="paginaStatus.lancamento.categoria.codigo">
+                            </g-autocomplete>
+                        </div>
+                        <div class="col-sm-4 col-xs-6">
+                            <g-autocomplete
+                                ref="refPessoa"
+                                etiqueta="Pessoa"
+                                validacao="required"
+                                valor="codigo"
+                                descricaoPrimaria="nome"
+                                :api=apiPessoa
+                                :desabilitar="paginaStatus.desabilitarEdicao"
+                                v-model="paginaStatus.lancamento.pessoa.codigo">
+                            </g-autocomplete>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <g-input
+                                ref="refValor"
+                                tipo="textarea"
+                                etiqueta="Observação"
+                                validacao="required | maxLength(100)"
+                                :alturaMaxima="100"
+                                :linhasMinimo="2"
+                                :tamanho="100"
+                                :foco="false"
+                                :desabilitar="paginaStatus.desabilitarEdicao"
+                                v-model="paginaStatus.lancamento.observacao">
+                            </g-input>
+                        </div>
+                    </div>
+                </q-card-main>
+            </q-card>
+        </form>
+        <div class="col-12 text-right pad-20t-h10-80b" >
+            <q-btn
+                round
+                class="fixed"
+                color="positive"
+                icon="check"
+                size="lg"
+                @click="salvar"
+                style="right: 18px; bottom:18px"
+                v-show="!paginaStatus.desabilitarEdicao">
+                <q-tooltip>Salvar</q-tooltip>
+            </q-btn>
+        </div>
+    </div>
+</template>

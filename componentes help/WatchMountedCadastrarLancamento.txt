@@ -1,0 +1,27 @@
+ watch: {
+    paginaStatus: {
+      handler (valor) {
+        if (valor) {
+          util.adicionarNoStorage(this.chaveLocalStorage, valor)
+        } else util.removerDoStorage(this.chaveLocalStorage)
+      },
+      deep: true
+    }
+  },
+  mounted () {
+    if (this.$route.params.paginaStatus) {
+      this.paginaStatus = this.$route.params.paginaStatus
+      this.paginaStatus.caminhoMigalha.push({
+        icone: this.paginaStatus.operacao.icone,
+        descricao: this.paginaStatus.operacao.nome,
+        rotaNome: 'lancamentoCadastrar'
+      })
+    } else if (util.recuperarDoStorage(this.chaveLocalStorage)) {
+      this.paginaStatus = util.recuperarDoStorage(this.chaveLocalStorage)
+    }
+
+    if (this.paginaStatus.operacao.nome !== 'Novo') {
+      this.carregarFiltroCategoria()
+      this.carregarFiltroPessoa()
+    }
+  },

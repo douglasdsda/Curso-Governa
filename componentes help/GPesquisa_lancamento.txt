@@ -1,0 +1,162 @@
+<template>
+    <div>
+        <g-breadcrumb :paginas="paginaStatus.caminhoMigalha"/>
+        <g-pesquisa
+            ref="refResultadoPesquisaLancamento"
+            :filtroAdicional="getFiltroPesquisa"
+            :colunasPropriedade=colunasLancamentoDataTable
+            :apiPesquisa="apiLancamento"
+            :operacoes="operacoes"
+            :exibirColunaOperacoes="exibirColunaOperacoes"
+            :elementosPorPagina="elementosPorPagina"
+            :novo="abrirPaginaLancamentoCadastrar">
+
+            <div class="row">
+                <div class="col-sm-4 col-xs-6">
+                    <g-input
+                        ref="refCodigo"
+                        tipo="text"
+                        etiqueta="Código"
+                        validacao="numeric"
+                        :foco="false"
+                        :chamarFuncaoNoEnter="pesquisarPrimeiraPagina"
+                        v-model="lancamento.codigo">
+                    </g-input>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <g-input
+                        ref="refNome"
+                        tipo="text"
+                        etiqueta="Descrição"
+                        validacao="text"
+                        :foco="false"
+                        :chamarFuncaoNoEnter="pesquisarPrimeiraPagina"
+                        v-model="lancamento.descricao">
+                    </g-input>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <g-select
+                        ref="refTipo"
+                        etiqueta="Tipo lançamento"
+                        :foco="false"
+                        :itens="tipoLancamentoArray"
+                        item-valor="codigo"
+                        item-etiqueta="descricao"
+                        v-model="lancamento.tipo">
+                    </g-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-xs-6">
+                    <g-autocomplete
+                        ref="refCategoria"
+                        etiqueta="Categoria"
+                        valor="codigo"
+                        descricaoPrimaria="nome"
+                        :api=apiCategoria
+                        v-model="lancamento.categoria.codigo">
+                    </g-autocomplete>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <g-autocomplete
+                        ref="refPessoa"
+                        etiqueta="Pessoa"
+                        valor="codigo"
+                        descricaoPrimaria="nome"
+                        :api=apiPessoa
+                        v-model="lancamento.pessoa.codigo">
+                    </g-autocomplete>
+                </div>
+            </div>
+        </g-pesquisa>
+    </div>
+</template>
+
+
+colunasLancamentoDataTable: [
+        {
+          conteudoTipo: '',
+          largura: '8%',
+          cabecalhoClasse: 'text-center',
+          cabecalhoEtiqueta: 'Código',
+          conteudoClasse: 'text-center',
+          propriedade: 'codigo',
+          chave: 'codigo'
+        },
+        {
+          conteudoTipo: '',
+          largura: '20%',
+          cabecalhoClasse: 'text-left',
+          cabecalhoEtiqueta: 'Descrição',
+          conteudoClasse: 'text-left',
+          propriedade: 'descricao'
+        },
+        {
+          conteudoTipo: '',
+          largura: '12%',
+          cabecalhoClasse: 'text-center',
+          cabecalhoEtiqueta: 'Dt. Vencimento',
+          conteudoClasse: 'text-center',
+          propriedade: 'dataVencimento',
+          formatar: (valor) => util.formatarData(valor, 'dd/mm/yyyy')
+        },
+        {
+          conteudoTipo: '',
+          largura: '12%',
+          cabecalhoClasse: 'text-center',
+          cabecalhoEtiqueta: 'Dt. Pagamento',
+          conteudoClasse: 'text-center',
+          propriedade: 'dataPagamento',
+          formatar: (valor) => util.formatarData(valor, 'dd/mm/yyyy')
+        },
+        {
+          conteudoTipo: '',
+          largura: '8%',
+          cabecalhoClasse: 'text-center',
+          cabecalhoEtiqueta: 'Tipo',
+          conteudoClasse: 'text-center',
+          propriedade: 'tipo'
+        },
+        {
+          conteudoTipo: '',
+          largura: '10%',
+          cabecalhoClasse: 'text-left',
+          cabecalhoEtiqueta: 'Categoria',
+          conteudoClasse: 'text-left',
+          propriedade: 'categoria.nome'
+        },
+        {
+          conteudoTipo: '',
+          largura: '10%',
+          cabecalhoClasse: 'text-left',
+          cabecalhoEtiqueta: 'Pessoa',
+          conteudoClasse: 'text-left',
+          propriedade: 'pessoa.nome'
+        }
+      ],
+      operacoes: [
+        {
+          cor: 'blue',
+          icone: 'fas fa-search',
+          tooptip: 'Visualizar pessoa',
+          clique: this.visualizarItem,
+          permissao: (row) => true,
+          visivel: (row) => true
+        },
+        {
+          cor: 'orange',
+          icone: 'fas fa-edit',
+          tooptip: 'Editar pessoa',
+          clique: this.editarItem,
+          permissao: (row) => true,
+          visivel: (row) => true
+        },
+        {
+          cor: 'red',
+          icone: 'fas fa-trash',
+          tooptip: 'Excluir pessoa',
+          clique: this.excluirItem,
+          permissao: (row) => true,
+          visivel: (row) => true
+        }
+      ]
